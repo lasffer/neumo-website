@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { Dialog, DialogBackdrop, DialogPanel, DialogTitle } from '@headlessui/react'
 import { AcademicCapIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import cursoImage from '../assets/cursos/2026_Curso_Neumo.jpg'
+import cursoPdfUrl from '../assets/cursos/pdf_detalle_largo/2026_Curso_Neumo.pdf?url'
 
 const CourseModal = () => {
   const [open, setOpen] = useState(false)
@@ -47,6 +48,16 @@ const CourseModal = () => {
     // Abrir el link de inscripción en una nueva pestaña
     window.open('https://www.ama-med.org.ar/especialidades/detalleCurso/588', '_blank', 'noopener,noreferrer')
     handleClose()
+  }
+
+  const handleDescargarPrograma = () => {
+    // Crear un enlace temporal para descargar el PDF usando la URL procesada por Vite
+    const link = document.createElement('a')
+    link.href = cursoPdfUrl
+    link.download = '2026_Curso_Neumo.pdf'
+    document.body.appendChild(link)
+    link.click()
+    document.body.removeChild(link)
   }
 
   return (
@@ -137,6 +148,13 @@ const CourseModal = () => {
                   className="inline-flex w-full justify-center rounded-md bg-primary-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-primary-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-600 sm:w-auto"
                 >
                   Inscribirse ahora
+                </button>
+                <button
+                  type="button"
+                  onClick={handleDescargarPrograma}
+                  className="mt-3 inline-flex w-full justify-center rounded-md bg-primary-50 px-3 py-2 text-sm font-semibold text-primary-700 shadow-sm ring-1 ring-inset ring-primary-200 hover:bg-primary-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-600 sm:mt-0 sm:w-auto"
+                >
+                  Descargar programa completo
                 </button>
                 <button
                   type="button"

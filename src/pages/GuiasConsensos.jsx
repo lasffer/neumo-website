@@ -1,15 +1,32 @@
+import { useState } from 'react'
+import gina2024Url from '../assets/articulos_interes/gina-2024-strategy-report-24_05_22_wms.pdf?url'
+import asmaNice2024Url from '../assets/articulos_interes/asma_nice_2024.pdf?url'
+import gold2021Url from '../assets/guias_consensos/gold_2021.pdf?url'
+import gina2020Url from '../assets/guias_consensos/gina-2020.pdf?url'
+import gold2020Url from '../assets/guias_consensos/gold-2020.pdf?url'
+import tuberculosisOcupacional2019Url from '../assets/guias_consensos/tuberculosis_ocupacional_2019_web.pdf?url'
+import gina2019Url from '../assets/guias_consensos/gina2019.pdf?url'
+import gold2019Url from '../assets/guias_consensos/gold2019.pdf?url'
+import tbTransmission2019Url from '../assets/guias_consensos/tb_transmission_erj_2019.pdf?url'
+import diagFpiAts2018Url from '../assets/guias_consensos/diag._fpi_ats_2018.pdf?url'
+import whoGlobalTb2018Url from '../assets/guias_consensos/who_global_tuberculosis_report_2018.pdf?url'
+import guiaEpoc2015Url from '../assets/guias_consensos/guia_epoc_2015_ministerio.pdf?url'
+import guiaDengueUrl from '../assets/guias_consensos/guia_dengue_ministerio.pdf?url'
+import guiaTbMuniz2011Url from '../assets/guias_consensos/guia_tuberculosis_del_hospital_muniz_2011.pdf?url'
+import guiaAlatEpoc2011Url from '../assets/guias_consensos/guiaalat_epoc_abril2011.pdf?url'
+
 const guias = [
   {
     id: 1,
     name: 'Global Strategy for Asthma 2024 (GINA)',
-    href: 'https://www.neumo-argentina.org/images/articulos_interes/gina-2024-strategy-report-24_05_22_wms.pdf',
+    href: gina2024Url,
     year: '2024',
     category: 'Asma',
   },
   {
     id: 2,
     name: 'NICE | BTS | SIGN Asthma 2024',
-    href: 'https://www.neumo-argentina.org/images/articulos_interes/asma_nice_2024.pdf',
+    href: asmaNice2024Url,
     year: '2024',
     category: 'Asma',
   },
@@ -23,63 +40,63 @@ const guias = [
   {
     id: 4,
     name: 'GOLD 2021',
-    href: 'https://www.neumo-argentina.org/images/guias_consensos/gold_2021.pdf',
+    href: gold2021Url,
     year: '2021',
     category: 'EPOC',
   },
   {
     id: 5,
     name: 'GINA 2020',
-    href: 'https://www.neumo-argentina.org/images/guias_consensos/gina-2020.pdf',
+    href: gina2020Url,
     year: '2020',
     category: 'Asma',
   },
   {
     id: 6,
     name: 'GOLD 2020',
-    href: 'https://www.neumo-argentina.org/images/guias_consensos/gold-2020.pdf',
+    href: gold2020Url,
     year: '2020',
     category: 'EPOC',
   },
   {
     id: 7,
     name: 'Tuberculosis ocupacional Argentina 2019',
-    href: 'https://www.neumo-argentina.org/images/guias_consensos/tuberculosis_ocupacional_2019_web.pdf',
+    href: tuberculosisOcupacional2019Url,
     year: '2019',
     category: 'Tuberculosis',
   },
   {
     id: 8,
     name: 'GINA 2019',
-    href: 'https://www.neumo-argentina.org/images/guias_consensos/gina2019.pdf',
+    href: gina2019Url,
     year: '2019',
     category: 'Asma',
   },
   {
     id: 9,
     name: 'GOLD 2019',
-    href: 'https://www.neumo-argentina.org/images/guias_consensos/gold2019.pdf',
+    href: gold2019Url,
     year: '2019',
     category: 'EPOC',
   },
   {
     id: 10,
     name: 'Reducing tuberculosis transmission (WHO) 2019',
-    href: 'https://www.neumo-argentina.org/images/guias_consensos/tb_transmission_erj_2019.pdf',
+    href: tbTransmission2019Url,
     year: '2019',
     category: 'Tuberculosis',
   },
   {
     id: 11,
     name: 'Diagnosis of Idiopathic Pulmonary Fibrosis 2018',
-    href: 'https://www.neumo-argentina.org/images/guias_consensos/diag._fpi_ats_2018.pdf',
+    href: diagFpiAts2018Url,
     year: '2018',
     category: 'Fibrosis Pulmonar',
   },
   {
     id: 12,
     name: 'GLOBAL Tuberculosis Report 2018',
-    href: 'https://www.neumo-argentina.org/images/guias_consensos/who_global_tuberculosis_report_2018.pdf',
+    href: whoGlobalTb2018Url,
     year: '2018',
     category: 'Tuberculosis',
   },
@@ -100,34 +117,32 @@ const guias = [
   {
     id: 15,
     name: 'Guía EPOC 2015 Ministerio',
-    href: 'https://www.neumo-argentina.org/images/guias_consensos/guia_epoc_2015_ministerio.pdf',
+    href: guiaEpoc2015Url,
     year: '2015',
     category: 'EPOC',
   },
   {
     id: 16,
     name: 'Guía DENGUE Ministerio',
-    href: 'https://www.neumo-argentina.org/images/guias_consensos/guia_dengue_ministerio.pdf',
+    href: guiaDengueUrl,
     year: '2015',
     category: 'General',
   },
   {
     id: 17,
     name: 'Guía de Diagnóstico, tratamiento y prevención de la tuberculosis',
-    href: 'https://www.neumo-argentina.org/images/guias_consensos/guia_tuberculosis_del_hospital_muniz_2011.pdf',
+    href: guiaTbMuniz2011Url,
     year: '2011',
     category: 'Tuberculosis',
   },
   {
     id: 18,
     name: 'Recomendaciones para EPOC (ALAT 2011)',
-    href: 'https://www.neumo-argentina.org/images/guias_consensos/guiaalat_epoc_abril2011.pdf',
+    href: guiaAlatEpoc2011Url,
     year: '2011',
     category: 'EPOC',
   },
 ]
-
-import { useState } from 'react'
 
 const GuiasConsensos = () => {
   const [searchTerm, setSearchTerm] = useState('')

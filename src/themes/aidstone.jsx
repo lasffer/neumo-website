@@ -2,19 +2,16 @@ import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import heroImage from '../assets/ama-frente.webp'
 import sanLogo from '../assets/logo_san.png'
-import patrocinioCemedic from '../assets/logos/patrocinio_cemedic_2.jpg'
-import patrocinioFemedica from '../assets/logos/patrocinio_femedica.jpg'
+import avalAma from '../assets/logos/aval_ama.jpeg'
+import cursoPdfUrl from '../assets/cursos/pdf_detalle_largo/2026_Curso_Neumo.pdf?url'
 import patrocinioFundacionRespirar from '../assets/logos/patrocinio_fundacion_respirar.jpg'
-import patrocinioInadea from '../assets/logos/patrocinio_inadea.jpg'
-import patrocinioLalcec from '../assets/logos/patrocinio_lalcecinstitucional.jpg'
-import patrocinioOsmedica from '../assets/logos/patrocinio_osmedica.jpg'
-import patrocinioRocimex from '../assets/logos/patrocinio_rocimex.jpg'
 import sociedadCifs from '../assets/logos/sociedades/cifs_logo.png'
-import sociedadFuncei from '../assets/logos/sociedades/funcei.png'
 import sociedadFundacionVacunar from '../assets/logos/sociedades/fundacion_vacunar.jpg'
 import sociedadRotary from '../assets/logos/sociedades/rotary.png'
 import sociedadSamt from '../assets/logos/sociedades/samt.jpg'
 import sociedadUata from '../assets/logos/sociedades/uata.jpg'
+import avalAaiba from '../assets/logos/aval_aaiba.png'
+import avalLalcec from '../assets/logos/aval_lalcecinstitucional.jpg'
 import { saveNewsletterEmail } from '../services/mongodb'
 import CourseModal from '../components/CourseModal'
 
@@ -37,19 +34,12 @@ const navLinks = [
     subItems: [
       { href: '/noticias', label: 'Noticias' },
       { href: '/videos', label: 'Videos' },
+      { href: '/noticias/articulos-interes', label: 'Artículos de interés' },
+      { href: '/noticias/sociedades-amigas', label: 'Sociedades amigas' },
     ],
   },
   { href: '/institucion', label: 'Institución' },
   { href: '/contacto', label: 'Contacto' },
-]
-
-const services = [
-  { title: 'Sesiones científicas', desc: 'Ateneos y discusión de casos entre especialistas.' },
-  { title: 'Recertificación y avales', desc: 'Orientación sobre requisitos, comités y documentación.' },
-  { title: 'Guías y consensos', desc: 'Protocolos y consensos validados por la SAN y la AMA.' },
-  { title: 'Artículos de interés', desc: 'Selección curada de evidencia y publicaciones recientes.' },
-  { title: 'Cursos y congresos', desc: 'Agenda académica y difusión de actividades federales.' },
-  { title: 'Sociedades amigas', desc: 'Articulamos con UATA, AAIBA, LALCEC, Vacunar, CIFS y más.' },
 ]
 
 const highlights = [
@@ -84,6 +74,7 @@ const timelineItems = [
 
 const Navbar = () => {
   const [open, setOpen] = useState(false)
+  const [openSubmenu, setOpenSubmenu] = useState(null)
   return (
     <div className="sticky top-0 z-50 border-t border-primary-600 bg-white/95 text-slate-900 backdrop-blur">
       <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3">
@@ -94,12 +85,18 @@ const Navbar = () => {
         <nav className="hidden items-center gap-6 text-sm font-medium text-slate-800 sm:flex">
           {navLinks.map((link) => (
             <div key={link.href} className="relative group">
-              <Link
-                to={link.href}
-                className="rounded px-3 py-2 transition hover:bg-primary-50 hover:text-primary-800"
-              >
-                {link.label}
-              </Link>
+              {link.subItems?.length ? (
+                <span className="rounded px-3 py-2 transition hover:bg-primary-50 hover:text-primary-800 cursor-pointer">
+                  {link.label}
+                </span>
+              ) : (
+                <Link
+                  to={link.href}
+                  className="rounded px-3 py-2 transition hover:bg-primary-50 hover:text-primary-800"
+                >
+                  {link.label}
+                </Link>
+              )}
               {link.subItems?.length ? (
                 <div className="pointer-events-none absolute left-1/2 top-full z-10 w-56 -translate-x-1/2 pt-2 opacity-0 transition group-hover:pointer-events-auto group-hover:opacity-100">
                   <div className="overflow-hidden rounded-lg border border-slate-200 bg-white text-sm shadow-lg">
@@ -138,27 +135,50 @@ const Navbar = () => {
         <nav className="flex flex-col gap-1 px-4 py-3 text-sm font-medium text-slate-700">
           {navLinks.map((link) => (
             <div key={link.href} className="flex flex-col gap-1">
-              <Link
-                to={link.href}
-                onClick={() => setOpen(false)}
-                className="rounded px-2 py-2 transition hover:bg-primary-50 hover:text-primary-800"
-              >
-                {link.label}
-              </Link>
               {link.subItems?.length ? (
-                <div className="ml-3 flex flex-col gap-1">
-                  {link.subItems.map((item) => (
-                    <Link
-                      key={item.label}
-                      to={item.href}
-                      onClick={() => setOpen(false)}
-                      className="rounded px-2 py-1 text-slate-600 transition hover:bg-primary-50 hover:text-primary-800"
+                <>
+                  <button
+                    type="button"
+                    onClick={() => setOpenSubmenu(openSubmenu === link.href ? null : link.href)}
+                    className="flex items-center justify-between rounded px-2 py-2 transition hover:bg-primary-50 hover:text-primary-800"
+                  >
+                    {link.label}
+                    <svg
+                      className={`h-4 w-4 transition-transform ${openSubmenu === link.href ? 'rotate-180' : ''}`}
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
                     >
-                      {item.label}
-                    </Link>
-                  ))}
-                </div>
-              ) : null}
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                    </svg>
+                  </button>
+                  {openSubmenu === link.href && (
+                    <div className="ml-3 flex flex-col gap-1">
+                      {link.subItems.map((item) => (
+                        <Link
+                          key={item.label}
+                          to={item.href}
+                          onClick={() => {
+                            setOpen(false)
+                            setOpenSubmenu(null)
+                          }}
+                          className="rounded px-2 py-1 text-slate-600 transition hover:bg-primary-50 hover:text-primary-800"
+                        >
+                          {item.label}
+                        </Link>
+                      ))}
+                    </div>
+                  )}
+                </>
+              ) : (
+                <Link
+                  to={link.href}
+                  onClick={() => setOpen(false)}
+                  className="rounded px-2 py-2 transition hover:bg-primary-50 hover:text-primary-800"
+                >
+                  {link.label}
+                </Link>
+              )}
             </div>
           ))}
         </nav>
@@ -184,13 +204,16 @@ const Hero = () => (
       <div className="relative max-w-2xl space-y-4 text-white">
         <div className="flex items-center gap-3">
           <img src={sanLogo} alt="Sociedad Argentina de Neumonología" className="h-12 w-auto drop-shadow-lg sm:h-16" />
-          <p className="text-xs font-semibold uppercase tracking-wide text-white/80">Sociedad Argentina de Neumonología</p>
+          <img src={avalAma} alt="Aval AMA" className="h-10 w-auto drop-shadow-lg sm:h-14" />
         </div>
-        <h1 className="text-3xl font-semibold leading-tight sm:text-4xl">
-          Nacimos para unir médicos, investigadores y pacientes.
+        <h1 className="text-3xl font-bold leading-tight sm:text-5xl">
+          Sociedad Argentina de Neumonología
         </h1>
-        <p className="text-base text-white/90 sm:text-lg">
-          Comunidad que comparte saberes y acerca la prevención respiratoria a cada rincón del país.
+        <p className="text-base text-white/90 sm:text-lg font-medium">
+          Entidad científica sin fines de lucro, desde 1918. Miembro de la AMA desde 1925.
+        </p>
+        <p className="text-sm text-white/80 sm:text-base">
+          Nacimos para unir médicos, investigadores y pacientes. Comunidad que comparte saberes y acerca la prevención respiratoria a cada rincón del país.
         </p>
       </div>
     </div>
@@ -199,21 +222,14 @@ const Hero = () => (
 
 const SociedadesAmigasSection = () => {
   const logos = [
-    // Patrocinadores
-    { src: patrocinioCemedic, alt: 'CEMEDIC' },
-    { src: patrocinioFemedica, alt: 'FEMEDICA' },
-    { src: patrocinioFundacionRespirar, alt: 'Fundación Respirar' },
-    { src: patrocinioInadea, alt: 'INADEA' },
-    { src: patrocinioLalcec, alt: 'LALCEC' },
-    { src: patrocinioOsmedica, alt: 'OSMEDICA' },
-    { src: patrocinioRocimex, alt: 'ROCIMEX' },
-    // Sociedades amigas
-    { src: sociedadCifs, alt: 'CIFS' },
-    { src: sociedadFuncei, alt: 'FUNCEI' },
-    { src: sociedadFundacionVacunar, alt: 'Fundación Vacunar' },
-    { src: sociedadRotary, alt: 'Rotary' },
-    { src: sociedadSamt, alt: 'SAMT' },
-    { src: sociedadUata, alt: 'UATA' },
+    { src: sociedadUata, alt: 'UATA', url: 'https://www.uata.org.ar/' },
+    { src: avalAaiba, alt: 'AAIBA', url: 'https://www.aaiba.org.ar/' },
+    { src: avalLalcec, alt: 'LALCEC', url: 'https://www.lalcec.org.ar/' },
+    { src: sociedadSamt, alt: 'SAMPT', url: null },
+    { src: sociedadFundacionVacunar, alt: 'Fundación Vacunar', url: 'https://www.fundacionvacunar.org.ar/' },
+    { src: sociedadRotary, alt: 'Rotary - Club of Lamorinda Sunrise', url: 'https://lamorindasunrise.org/' },
+    { src: patrocinioFundacionRespirar, alt: 'Fundación Respirar', url: 'https://fundacionrespirar.org/' },
+    { src: sociedadCifs, alt: 'Copenhagen Institute for Futures Studios', url: 'https://www.cifs.dk/' },
   ]
 
   // Usamos 3 copias para asegurar un bucle continuo en el marquee
@@ -222,13 +238,22 @@ const SociedadesAmigasSection = () => {
   
   for (let i = 0; i < copiesCount; i++) {
     logos.forEach((logo, logoIdx) => {
+      const logoElement = (
+        <img
+          alt={logo.alt}
+          src={logo.src}
+          className="max-h-12 w-auto object-contain opacity-70 grayscale"
+        />
+      )
       allCopies.push(
         <div key={`copy-${i}-logo-${logoIdx}`} className="flex-shrink-0 px-8">
-          <img
-            alt={logo.alt}
-            src={logo.src}
-            className="max-h-12 w-auto object-contain opacity-70 grayscale"
-          />
+          {logo.url ? (
+            <a href={logo.url} target="_blank" rel="noopener noreferrer" className="block">
+              {logoElement}
+            </a>
+          ) : (
+            logoElement
+          )}
         </div>
       )
     })
@@ -241,15 +266,29 @@ const SociedadesAmigasSection = () => {
           Sociedades amigas
         </h2>
         {/* Versión estática para pantallas grandes */}
-        <div className="mx-auto mt-10 hidden w-full items-center justify-between gap-x-8 gap-y-10 lg:flex lg:gap-x-12">
-          {logos.map((logo, idx) => (
-            <img
-              key={idx}
-              alt={logo.alt}
-              src={logo.src}
-              className="max-h-12 w-auto object-contain opacity-70 grayscale hover:opacity-100 hover:grayscale-0 transition"
-            />
-          ))}
+        <div className="mx-auto mt-10 hidden w-full items-center justify-center gap-x-8 gap-y-10 lg:flex lg:flex-wrap lg:gap-x-12">
+          {logos.map((logo, idx) => {
+            const logoElement = (
+              <img
+                alt={logo.alt}
+                src={logo.src}
+                className="max-h-12 w-auto object-contain opacity-70 grayscale hover:opacity-100 hover:grayscale-0 transition"
+              />
+            )
+            return logo.url ? (
+              <a
+                key={idx}
+                href={logo.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block"
+              >
+                {logoElement}
+              </a>
+            ) : (
+              <div key={idx}>{logoElement}</div>
+            )
+          })}
         </div>
         {/* Versión marquee para pantallas pequeñas - 3 copias para asegurar bucle perfecto */}
         <div className="mt-10 overflow-hidden lg:hidden">
@@ -291,7 +330,7 @@ const CourseHighlight = () => {
               <p className="mt-1 text-sm font-medium text-slate-900">Sesiones semanales</p>
             </div>
           </div>
-          <div className="mt-8">
+          <div className="mt-8 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
             <a
               href="https://www.ama-med.org.ar/especialidades/detalleCurso/588"
               target="_blank"
@@ -301,6 +340,17 @@ const CourseHighlight = () => {
               Inscribirse al curso
               <svg className="ml-2 h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+              </svg>
+            </a>
+            <a
+              href={cursoPdfUrl}
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex items-center justify-center rounded-md bg-white px-6 py-3 text-base font-semibold text-primary-700 shadow-sm ring-1 ring-inset ring-primary-300 hover:bg-primary-50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-600 transition"
+            >
+              Ver programa completo
+              <svg className="ml-2 h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
               </svg>
             </a>
           </div>
@@ -392,6 +442,103 @@ const Newsletter = () => {
             .
           </p>
         </form>
+      </div>
+    </section>
+  )
+}
+
+import fundacionVacunarImg from '../assets/cursos_congresos/2025/fundacion_vacunar.png'
+import masterFormacionImg from '../assets/cursos_congresos/2024/master_formacion.png'
+import flyerCardioImg from '../assets/cursos_congresos/2025/flyer_cardio.jpg'
+import flyerCongresoOncoImg from '../assets/cursos_congresos/2025/flyer_congreso_onco.jpg'
+import masterFormacionPdfUrl from '../assets/cursos_congresos/2024/master_formacion_hipertension_arterial.pdf?url'
+import flyerCardioBigUrl from '../assets/cursos_congresos/2025/flyer_cardio_big.jpg'
+
+// Datos de noticias de sociedades amigas (últimas 4 para mostrar en home)
+const ultimasNoticiasSociedadesAmigas = [
+  {
+    id: 1,
+    title: 'PROGRAMA, FECHA, HORARIOS, INSCRIPCIÓN Y BECAS',
+    content: 'Información completa sobre programa académico, fechas del evento, horarios de las sesiones, proceso de inscripción y disponibilidad de becas para participantes.',
+    href: 'https://www.simposiofundacionvacunar.org',
+    sociedad: 'Fundación Vacunar',
+    image: fundacionVacunarImg,
+  },
+  {
+    id: 2,
+    title: 'Master de formación permanente en hipertensión pulmonar',
+    content: 'Programa de formación continua especializado en hipertensión pulmonar. Edición Internacional 2023-2025 diseñado para profesionales que buscan profundizar sus conocimientos en esta área.',
+    href: masterFormacionPdfUrl,
+    sociedad: 'SAN',
+    image: masterFormacionImg,
+  },
+  {
+    id: 3,
+    title: 'VI Congreso Interamericano de Prevención Cardiovascular 2025',
+    content: 'IV Congreso OSEP y SALID, 17 Simposio Cuyano de Enfermedad cardiovascular en la Mujer, VI Cardiometabolismo Tour. Del 02 al 04 de octubre de 2025 en Hotel Hilton Mendoza.',
+    href: flyerCardioBigUrl,
+    sociedad: 'SAN',
+    image: flyerCardioImg,
+  },
+  {
+    id: 4,
+    title: 'XXVII Congreso de Oncología Clínica',
+    content: 'Importante evento académico que reúne a especialistas en oncología clínica para el intercambio de conocimientos, presentación de casos y actualización en tratamientos oncológicos.',
+    href: 'https://congresoaaoc.com.ar/',
+    sociedad: 'SAN',
+    image: flyerCongresoOncoImg,
+  },
+]
+
+const NoticiasSociedadesAmigasSection = () => {
+  return (
+    <section className="mt-8 rounded-2xl border border-slate-200 bg-white px-6 py-10 shadow-sm sm:px-10">
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+        <div className="space-y-2">
+          <p className="text-sm font-semibold uppercase tracking-wide text-primary-700">Sociedades amigas</p>
+          <h2 className="text-2xl font-semibold text-slate-900">Noticias de las sociedades amigas</h2>
+          <p className="text-sm text-slate-600">
+            Mantenete al día con las últimas novedades, publicaciones y eventos de nuestras sociedades amigas.
+          </p>
+        </div>
+        <Link
+          to="/noticias/sociedades-amigas"
+          className="flex-none text-sm font-semibold text-primary-600 hover:text-primary-700"
+        >
+          Ver todas →
+        </Link>
+      </div>
+      <div className="mt-6 grid gap-6 sm:grid-cols-2">
+        {ultimasNoticiasSociedadesAmigas.map((noticia) => (
+          <a
+            key={noticia.id}
+            href={noticia.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group flex flex-col gap-3 rounded-xl border border-slate-200 bg-slate-50 p-4 shadow-sm transition hover:border-primary-300 hover:shadow-md"
+          >
+            {noticia.image && (
+              <img
+                src={noticia.image}
+                alt={noticia.title}
+                className="h-32 w-full rounded-lg object-cover"
+              />
+            )}
+            <div className="flex-1 space-y-2">
+              <div className="flex items-center gap-2">
+                <span className="inline-flex items-center rounded-md bg-primary-50 px-2 py-1 text-xs font-medium text-primary-700 ring-1 ring-inset ring-primary-600/20">
+                  {noticia.sociedad}
+                </span>
+              </div>
+              <h3 className="text-base font-semibold text-slate-900 group-hover:text-primary-700">
+                {noticia.title}
+              </h3>
+              <p className="text-sm text-slate-600 line-clamp-2">
+                {noticia.content}
+              </p>
+            </div>
+          </a>
+        ))}
       </div>
     </section>
   )
@@ -492,68 +639,6 @@ const About = () => {
   )
 }
 
-const ServicesGrid = () => {
-  const [visibleServices, setVisibleServices] = useState(() => new Array(services.length).fill(false))
-  const serviceRefs = useRef([])
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            const idx = Number(entry.target.dataset.index)
-            setVisibleServices((prev) => {
-              if (prev[idx]) return prev
-              const next = [...prev]
-              next[idx] = true
-              return next
-            })
-            observer.unobserve(entry.target)
-          }
-        })
-      },
-      { threshold: 0.25 }
-    )
-
-    serviceRefs.current.forEach((el) => {
-      if (el) observer.observe(el)
-    })
-
-    return () => observer.disconnect()
-  }, [])
-
-  return (
-    <section id="services-grid" className="mt-10 rounded-2xl border border-slate-200 bg-white px-6 py-10 shadow-sm sm:px-10">
-      <div className="mb-6 flex flex-col gap-2">
-        <p className="text-sm font-semibold uppercase tracking-wide text-primary-700">Qué hacemos</p>
-        <h2 className="text-2xl font-semibold text-slate-900">Articulamos comunidad y formación profesional</h2>
-        <p className="text-sm text-slate-600">
-          Conectamos especialistas, avalamos actividades y difundimos recursos académicos.
-        </p>
-      </div>
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {services.map((svc, idx) => (
-          <div
-            key={svc.title}
-            data-index={idx}
-            ref={(el) => {
-              serviceRefs.current[idx] = el
-            }}
-            className={`flex h-full flex-col gap-2 rounded-xl border border-slate-200 bg-slate-50 px-4 py-4 shadow-sm transition-all duration-700 ease-out will-change-transform ${
-              visibleServices[idx] ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'
-            }`}
-          >
-            <span className="text-xs font-semibold text-primary-700">{String(idx + 1).padStart(2, '0')}</span>
-            <p className="text-lg font-semibold text-slate-900">{svc.title}</p>
-            <p className="text-sm text-slate-600">{svc.desc}</p>
-            <span className="mt-auto text-sm font-semibold text-primary-700 underline-offset-4 hover:underline">Saber más</span>
-          </div>
-        ))}
-      </div>
-    </section>
-  )
-}
-
 const Footer = () => (
   <footer id="contact" className="mt-10 border-t border-slate-200 bg-white">
     <div className="mx-auto max-w-6xl px-4 py-10">
@@ -598,9 +683,9 @@ export function AidstoneLayout() {
         <SociedadesAmigasSection />
         <CourseHighlight />
         <Newsletter />
+        <NoticiasSociedadesAmigasSection />
         <WhyChoose />
         <About />
-        <ServicesGrid />
       </main>
       <Footer />
       <CourseModal />

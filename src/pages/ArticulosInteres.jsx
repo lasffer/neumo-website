@@ -1,122 +1,139 @@
 import { useState } from 'react'
+import separataArApTabquismoUrl from '../assets/articulos_interes/2021_separata_ar_ap_tabquismo.pdf?url'
+import separataBasesCesacionUrl from '../assets/articulos_interes/2021_separata_bases_cesacion_tabaquica.pdf?url'
+import vacunaAntigripalUrl from '../assets/articulos_interes/vacuna_antigripal_minist_2020.pdf?url'
+import vacunacionNeumococoUrl from '../assets/articulos_interes/vacunacion_contra_neumococo.pdf?url'
+import estadisticaCancerUrl from '../assets/noticias/2016/estadistica_del_cancer.pdf?url'
+import encuestaAsmaUrl from '../assets/articulos_interes/encuesta_asma_arg_2015.pdf?url'
+import who2015VacInfluenzaUrl from '../assets/articulos_interes/who_2015_vac_influenza.pdf?url'
+import tb2014ReporteOmsUrl from '../assets/articulos_interes/tb_2014_-_reporte_oms.pdf?url'
+import who2013EpidemiaTabacoUrl from '../assets/articulos_interes/who_2013_epidemia_tabaco.pdf?url'
+import salaIraUrl from '../assets/articulos_interes/sala_ira_sem_26-2012.ppt?url'
+import ministerioEnfRespUrl from '../assets/articulos_interes/ministerio_enf.resp.2011.pdf?url'
+import estudioCargaEnfermedadUrl from '../assets/articulos_interes/estudio_de_carga_de_enfermedad_-_arg_2010.pdf?url'
+import tabacoAdolescentesUrl from '../assets/articulos_interes/tabaco_en_adolescentes_argentina_2009.pdf?url'
+import encuestaNacionalFactoresRiesgoUrl from '../assets/articulos_interes/encuesta_nacional_de_factores_de_riesgo_2009_revargent_salud_publica.pdf?url'
+import msnVigilanciaIraUrl from '../assets/articulos_interes/msn_vigilancia_de_infecciones_respiratorias_agudas.pdf?url'
+import alertaBotulismoUrl from '../assets/articulos_interes/alerta_botulismo_alimentario_argentina.pdf?url'
+import alertaInfluenzaUrl from '../assets/articulos_interes/alerta_influenza.pdf?url'
 
 const articulos = [
   {
     id: 1,
     name: 'ARTRITIS REUMATOIDE/ARTRITIS PSORIÁSICA Y TABAQUISMO - SEPARATA 2021 - C. BOCCIA',
-    href: 'https://www.neumo-argentina.org/images/articulos_interes/2021_separata_ar_ap_tabquismo.pdf',
+    href: separataArApTabquismoUrl,
     year: '2021',
     category: 'Tabaquismo',
   },
   {
     id: 2,
     name: 'BASES PARA LA CESACIÓN TABÁQUICA - SEPARATA 2021 - C. BOCCIA',
-    href: 'https://www.neumo-argentina.org/images/articulos_interes/2021_separata_bases_cesacion_tabaquica.pdf',
+    href: separataBasesCesacionUrl,
     year: '2021',
     category: 'Tabaquismo',
   },
   {
     id: 3,
     name: 'Vacuna antigripal Ministerio de Salud de Argentina 2020',
-    href: 'https://www.neumo-argentina.org/images/articulos_interes/vacuna_antigripal_minist_2020.pdf',
+    href: vacunaAntigripalUrl,
     year: '2020',
     category: 'Vacunación',
   },
   {
     id: 4,
     name: 'Vacunación contra neumococo Estrategia Argentina 2017 - 2018',
-    href: 'https://www.neumo-argentina.org/images/articulos_interes/vacunacion_contra_neumococo.pdf',
+    href: vacunacionNeumococoUrl,
     year: '2017',
     category: 'Vacunación',
   },
   {
     id: 5,
     name: 'Estadísticas del Cáncer en la Argentina - 2016',
-    href: 'https://www.neumo-argentina.org/images/noticias/2016/estadistica_del_cancer.pdf',
+    href: estadisticaCancerUrl,
     year: '2016',
     category: 'Epidemiología',
   },
   {
     id: 6,
     name: 'Encuesta ASMA ARG 2015',
-    href: 'https://www.neumo-argentina.org/images/articulos_interes/encuesta_asma_arg_2015.pdf',
+    href: encuestaAsmaUrl,
     year: '2015',
     category: 'Asma',
   },
   {
     id: 7,
     name: 'WHO 2015 vac influenza',
-    href: 'https://www.neumo-argentina.org/images/articulos_interes/who_2015_vac_influenza.pdf',
+    href: who2015VacInfluenzaUrl,
     year: '2015',
     category: 'Vacunación',
   },
   {
     id: 8,
     name: 'TB 2014 - Reporte OMS',
-    href: 'https://www.neumo-argentina.org/images/articulos_interes/tb_2014_-_reporte_oms.pdf',
+    href: tb2014ReporteOmsUrl,
     year: '2014',
     category: 'Tuberculosis',
   },
   {
     id: 9,
     name: 'WHO 2013 epidemia tabaco',
-    href: 'https://www.neumo-argentina.org/images/articulos_interes/who_2013_epidemia_tabaco.pdf',
+    href: who2013EpidemiaTabacoUrl,
     year: '2013',
     category: 'Tabaquismo',
   },
   {
     id: 10,
     name: 'SALA IRA sem 26-2012',
-    href: 'https://www.neumo-argentina.org/images/articulos_interes/sala_ira_sem_26-2012.ppt',
+    href: salaIraUrl,
     year: '2012',
     category: 'Epidemiología',
   },
   {
     id: 11,
     name: 'Resumen de la situación de enfermedades respiratorias 2011 Semana Epidemiológica 39',
-    href: 'https://www.neumo-argentina.org/images/articulos_interes/ministerio_enf.resp.2011.pdf',
+    href: ministerioEnfRespUrl,
     year: '2011',
     category: 'Epidemiología',
   },
   {
     id: 12,
     name: 'Estudio de carga de enfermedad - ARG 2010',
-    href: 'https://www.neumo-argentina.org/images/articulos_interes/estudio_de_carga_de_enfermedad_-_arg_2010.pdf',
+    href: estudioCargaEnfermedadUrl,
     year: '2010',
     category: 'Epidemiología',
   },
   {
     id: 13,
     name: 'Tabaco en adolescentes argentina 2009',
-    href: 'https://www.neumo-argentina.org/images/articulos_interes/tabaco_en_adolescentes_argentina_2009.pdf',
+    href: tabacoAdolescentesUrl,
     year: '2009',
     category: 'Tabaquismo',
   },
   {
     id: 14,
     name: 'Encuesta Nacional de Factores de Riesgo 2009 RevArgent Salud Publica',
-    href: 'https://www.neumo-argentina.org/images/articulos_interes/encuesta_nacional_de_factores_de_riesgo_2009_revargent_salud_publica.pdf',
+    href: encuestaNacionalFactoresRiesgoUrl,
     year: '2009',
     category: 'Epidemiología',
   },
   {
     id: 15,
     name: 'MSN - Vigilancia de infecciones respiratorias agudas',
-    href: 'https://www.neumo-argentina.org/images/articulos_interes/msn_vigilancia_de_infecciones_respiratorias_agudas.pdf',
+    href: msnVigilanciaIraUrl,
     year: '2009',
     category: 'Epidemiología',
   },
   {
     id: 16,
     name: 'Alerta Botulismo Alimentario Argentina',
-    href: 'https://www.neumo-argentina.org/images/articulos_interes/alerta_botulismo_alimentario_argentina.pdf',
+    href: alertaBotulismoUrl,
     year: '2008',
     category: 'General',
   },
   {
     id: 17,
     name: 'Alerta Influenza',
-    href: 'https://www.neumo-argentina.org/images/articulos_interes/alerta_influenza.pdf',
+    href: alertaInfluenzaUrl,
     year: '2008',
     category: 'Vacunación',
   },

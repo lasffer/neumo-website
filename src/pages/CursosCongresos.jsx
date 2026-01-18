@@ -1,4 +1,12 @@
 import { useState } from 'react'
+import flyerCardioBigUrl from '../assets/cursos_congresos/2025/flyer_cardio_big.jpg'
+import masterFormacionPdfUrl from '../assets/cursos_congresos/2024/master_formacion_hipertension_arterial.pdf?url'
+import flyerNeumo2024Url from '../assets/cursos_congresos/2024/flyer_neumo_2024.png'
+import programaNeumo2024Url from '../assets/cursos_congresos/2024/programa_curso_neumo_2024.pdf?url'
+import enfoqueGrandeUrl from '../assets/cursos_congresos/2024/enfoque_grande.png'
+import alergia24Url from '../assets/cursos_congresos/2024/alergia_24.jpg'
+import programaNeumo2023Url from '../assets/cursos_congresos/2023/curso_neumo_2023_programa.pdf?url'
+import programaNeumo2022Url from '../assets/cursos_congresos/2022/programa_curso_neumo_2022.pdf?url'
 
 // Mapeo de meses
 const monthsMap = {
@@ -43,7 +51,7 @@ const eventos = [
     location: 'Hotel Hilton Mendoza',
     modality: 'Presencial',
     links: [
-      { label: 'Ver flyer', href: 'https://www.neumo-argentina.org/images/cursos_congresos/2025/flyer_cardio_big.jpg' },
+      { label: 'Ver flyer', href: flyerCardioBigUrl },
     ],
     year: '2025',
     month: 'Octubre',
@@ -57,7 +65,7 @@ const eventos = [
     location: 'Online',
     modality: 'Online',
     links: [
-      { label: 'Más información', href: 'https://www.neumo-argentina.org/images/cursos_congresos/2024/master_formacion_hipertension_arterial.pdf' },
+      { label: 'Más información', href: masterFormacionPdfUrl },
     ],
     year: '2024',
     month: 'Marzo',
@@ -84,8 +92,8 @@ const eventos = [
     location: 'AMA / Online',
     modality: 'Híbrido',
     links: [
-      { label: 'Ver Flyer', href: 'https://www.neumo-argentina.org/images/cursos_congresos/2024/flyer_neumo_2024.png' },
-      { label: 'Ver Programa', href: 'https://www.neumo-argentina.org/images/cursos_congresos/2024/programa_curso_neumo_2024.pdf' },
+      { label: 'Ver Flyer', href: flyerNeumo2024Url },
+      { label: 'Ver Programa', href: programaNeumo2024Url },
       { label: 'Inscripciones online', href: 'https://www.ama-med.org.ar/contacto/option/curso' },
     ],
     year: '2024',
@@ -99,7 +107,7 @@ const eventos = [
     location: 'Centro de convenciones Sheraton Bs As',
     modality: 'Presencial',
     links: [
-      { label: 'Ver Flyer', href: 'https://www.neumo-argentina.org/images/cursos_congresos/2024/enfoque_grande.png' },
+      { label: 'Ver Flyer', href: enfoqueGrandeUrl },
       { label: 'Inscripción', href: 'https://enfoquepulmon.com.ar/' },
     ],
     year: '2024',
@@ -113,7 +121,7 @@ const eventos = [
     location: 'Moreno 909 CABA',
     modality: 'Híbrido',
     links: [
-      { label: 'Ver Flyer', href: 'https://www.neumo-argentina.org/images/cursos_congresos/2024/alergia_24.jpg' },
+      { label: 'Ver Flyer', href: alergia24Url },
       { label: 'Informes e inscripcion', href: 'https://alergia.org.ar/index.php/jornada-ambiente-2024' },
     ],
     year: '2024',
@@ -141,7 +149,7 @@ const eventos = [
     location: 'AMA / Online',
     modality: 'Híbrido',
     links: [
-      { label: 'Ver programa', href: 'https://www.neumo-argentina.org/images/cursos_congresos/2023/curso_neumo_2023_programa.pdf' },
+      { label: 'Ver programa', href: programaNeumo2023Url },
       { label: 'Inscripción online', href: 'https://www.ama-med.org.ar/contacto/preinscripcionNew2' },
     ],
     year: '2023',
@@ -156,7 +164,7 @@ const eventos = [
     location: 'AMA / Online',
     modality: 'Híbrido',
     links: [
-      { label: 'Ver programa', href: 'https://www.neumo-argentina.org/images/cursos_congresos/2022/programa_curso_neumo_2022.pdf' },
+      { label: 'Ver programa', href: programaNeumo2022Url },
       { label: 'Inscripción online', href: 'https://www.ama-med.org.ar/especialidades/detalleCurso/588' },
     ],
     year: '2022',
@@ -188,6 +196,29 @@ const eventos = [
     year: '2022',
     month: 'Mayo',
   },
+].sort((a, b) => {
+  // Ordenar por fecha completa (más reciente primero)
+  return new Date(b.dateFull) - new Date(a.dateFull)
+})
+
+// Array de noticias destacadas con estructura flexible
+// imageLayout puede ser: 'full' (imagen arriba, texto abajo), 'left' (imagen izquierda), 'right' (imagen derecha), o null (sin imagen)
+const noticiasDestacadas = [
+  // Ejemplo 1: Noticia con imagen arriba y texto abajo
+  // {
+  //   id: 1,
+  //   title: 'PROGRAMA, FECHAS, HORARIOS, INSCRIPCIÓN Y BECAS',
+  //   content: 'Descripción completa del evento con toda la información relevante...',
+  //   imageLayout: 'full', // 'full' | 'left' | 'right' | null
+  //   image: '../assets/cursos/ejemplo.jpg', // Ruta a la imagen (opcional)
+  //   links: [
+  //     { label: 'Ver PDF', href: 'https://example.com/programa.pdf', type: 'pdf' },
+  //     { label: 'Inscripción', href: 'https://example.com/inscripcion', type: 'web' },
+  //   ],
+  //   year: '2025',
+  //   month: 'Enero',
+  //   dateFull: '2025-01-15',
+  // },
 ].sort((a, b) => {
   // Ordenar por fecha completa (más reciente primero)
   return new Date(b.dateFull) - new Date(a.dateFull)
@@ -277,6 +308,230 @@ const CursosCongresos = () => {
             </select>
           </div>
         </div>
+
+        {/* Noticias Destacadas */}
+        {noticiasDestacadas.length > 0 && (
+          <div className="mx-auto mt-16 max-w-2xl lg:max-w-none">
+            <h3 className="text-2xl font-bold text-slate-900 mb-8">Noticias destacadas</h3>
+            <div className="space-y-12">
+              {noticiasDestacadas.map((noticia) => (
+                <article
+                  key={noticia.id}
+                  className="overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm"
+                >
+                  {/* Layout: imagen arriba, texto abajo */}
+                  {noticia.imageLayout === 'full' && (
+                    <div className="flex flex-col">
+                      {noticia.image && (
+                        <div className="flex-shrink-0">
+                          <img
+                            className="h-64 w-full object-cover"
+                            src={noticia.image}
+                            alt={noticia.title}
+                          />
+                        </div>
+                      )}
+                      <div className="flex flex-1 flex-col p-6">
+                        <h4 className="text-xl font-semibold text-slate-900 mb-2">{noticia.title}</h4>
+                        {noticia.month && noticia.year && (
+                          <p className="text-sm text-slate-500 mb-4">
+                            {noticia.month} {noticia.year}
+                          </p>
+                        )}
+                        {noticia.content && (
+                          <p className="text-sm text-slate-600 mb-4 whitespace-pre-line">{noticia.content}</p>
+                        )}
+                        {noticia.links && noticia.links.length > 0 && (
+                          <div className="flex flex-wrap gap-3 mt-auto">
+                            {noticia.links.map((link, linkIdx) => (
+                              <a
+                                key={linkIdx}
+                                href={link.href}
+                                target="_blank"
+                                rel="noreferrer"
+                                className={`inline-flex items-center rounded-md px-4 py-2 text-sm font-semibold shadow-sm transition ${
+                                  link.type === 'pdf'
+                                    ? 'bg-primary-600 text-white hover:bg-primary-700'
+                                    : 'bg-white text-slate-900 ring-1 ring-slate-300 hover:bg-slate-50'
+                                }`}
+                              >
+                                {link.label}
+                                {link.type === 'web' && (
+                                  <svg className="ml-2 h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                                  </svg>
+                                )}
+                                {link.type === 'pdf' && (
+                                  <svg className="ml-2 h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                                  </svg>
+                                )}
+                              </a>
+                            ))}
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Layout: imagen izquierda, texto derecha */}
+                  {noticia.imageLayout === 'left' && (
+                    <div className="flex flex-col sm:flex-row">
+                      {noticia.image && (
+                        <div className="flex-shrink-0 sm:w-64">
+                          <img
+                            className="h-48 w-full object-cover sm:h-full"
+                            src={noticia.image}
+                            alt={noticia.title}
+                          />
+                        </div>
+                      )}
+                      <div className="flex flex-1 flex-col p-6">
+                        <h4 className="text-xl font-semibold text-slate-900 mb-2">{noticia.title}</h4>
+                        {noticia.month && noticia.year && (
+                          <p className="text-sm text-slate-500 mb-4">
+                            {noticia.month} {noticia.year}
+                          </p>
+                        )}
+                        {noticia.content && (
+                          <p className="text-sm text-slate-600 mb-4 whitespace-pre-line">{noticia.content}</p>
+                        )}
+                        {noticia.links && noticia.links.length > 0 && (
+                          <div className="flex flex-wrap gap-3 mt-auto">
+                            {noticia.links.map((link, linkIdx) => (
+                              <a
+                                key={linkIdx}
+                                href={link.href}
+                                target="_blank"
+                                rel="noreferrer"
+                                className={`inline-flex items-center rounded-md px-4 py-2 text-sm font-semibold shadow-sm transition ${
+                                  link.type === 'pdf'
+                                    ? 'bg-primary-600 text-white hover:bg-primary-700'
+                                    : 'bg-white text-slate-900 ring-1 ring-slate-300 hover:bg-slate-50'
+                                }`}
+                              >
+                                {link.label}
+                                {link.type === 'web' && (
+                                  <svg className="ml-2 h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                                  </svg>
+                                )}
+                                {link.type === 'pdf' && (
+                                  <svg className="ml-2 h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                                  </svg>
+                                )}
+                              </a>
+                            ))}
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Layout: imagen derecha, texto izquierda */}
+                  {noticia.imageLayout === 'right' && (
+                    <div className="flex flex-col sm:flex-row-reverse">
+                      {noticia.image && (
+                        <div className="flex-shrink-0 sm:w-64">
+                          <img
+                            className="h-48 w-full object-cover sm:h-full"
+                            src={noticia.image}
+                            alt={noticia.title}
+                          />
+                        </div>
+                      )}
+                      <div className="flex flex-1 flex-col p-6">
+                        <h4 className="text-xl font-semibold text-slate-900 mb-2">{noticia.title}</h4>
+                        {noticia.month && noticia.year && (
+                          <p className="text-sm text-slate-500 mb-4">
+                            {noticia.month} {noticia.year}
+                          </p>
+                        )}
+                        {noticia.content && (
+                          <p className="text-sm text-slate-600 mb-4 whitespace-pre-line">{noticia.content}</p>
+                        )}
+                        {noticia.links && noticia.links.length > 0 && (
+                          <div className="flex flex-wrap gap-3 mt-auto">
+                            {noticia.links.map((link, linkIdx) => (
+                              <a
+                                key={linkIdx}
+                                href={link.href}
+                                target="_blank"
+                                rel="noreferrer"
+                                className={`inline-flex items-center rounded-md px-4 py-2 text-sm font-semibold shadow-sm transition ${
+                                  link.type === 'pdf'
+                                    ? 'bg-primary-600 text-white hover:bg-primary-700'
+                                    : 'bg-white text-slate-900 ring-1 ring-slate-300 hover:bg-slate-50'
+                                }`}
+                              >
+                                {link.label}
+                                {link.type === 'web' && (
+                                  <svg className="ml-2 h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                                  </svg>
+                                )}
+                                {link.type === 'pdf' && (
+                                  <svg className="ml-2 h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                                  </svg>
+                                )}
+                              </a>
+                            ))}
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Layout: sin imagen */}
+                  {!noticia.imageLayout && (
+                    <div className="flex flex-1 flex-col p-6">
+                      <h4 className="text-xl font-semibold text-slate-900 mb-2">{noticia.title}</h4>
+                      {noticia.month && noticia.year && (
+                        <p className="text-sm text-slate-500 mb-4">
+                          {noticia.month} {noticia.year}
+                        </p>
+                      )}
+                      {noticia.content && (
+                        <p className="text-sm text-slate-600 mb-4 whitespace-pre-line">{noticia.content}</p>
+                      )}
+                      {noticia.links && noticia.links.length > 0 && (
+                        <div className="flex flex-wrap gap-3 mt-auto">
+                          {noticia.links.map((link, linkIdx) => (
+                            <a
+                              key={linkIdx}
+                              href={link.href}
+                              target="_blank"
+                              rel="noreferrer"
+                              className={`inline-flex items-center rounded-md px-4 py-2 text-sm font-semibold shadow-sm transition ${
+                                link.type === 'pdf'
+                                  ? 'bg-primary-600 text-white hover:bg-primary-700'
+                                  : 'bg-white text-slate-900 ring-1 ring-slate-300 hover:bg-slate-50'
+                              }`}
+                            >
+                              {link.label}
+                              {link.type === 'web' && (
+                                <svg className="ml-2 h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                                </svg>
+                              )}
+                              {link.type === 'pdf' && (
+                                <svg className="ml-2 h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                                </svg>
+                              )}
+                            </a>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  )}
+                </article>
+              ))}
+            </div>
+          </div>
+        )}
 
         {/* Timeline */}
         <div className="mx-auto mt-16 max-w-2xl lg:max-w-none">

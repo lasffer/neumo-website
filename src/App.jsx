@@ -9,6 +9,8 @@ import ArticulosInteres from './pages/ArticulosInteres'
 import CursosCongresos from './pages/CursosCongresos'
 import Noticias from './pages/Noticias'
 import Videos from './pages/Videos'
+import ArticulosPropios from './pages/ArticulosPropios'
+import SociedadesAmigas from './pages/SociedadesAmigas'
 import Institucion from './pages/Institucion'
 import Contacto from './pages/Contacto'
 
@@ -36,6 +38,8 @@ function App() {
           <Route path="/servicios/cursos-congresos" element={<CursosCongresos />} />
           <Route path="/noticias" element={<Noticias />} />
           <Route path="/videos" element={<Videos />} />
+          <Route path="/noticias/articulos-interes" element={<ArticulosPropios />} />
+          <Route path="/noticias/sociedades-amigas" element={<SociedadesAmigas />} />
           <Route path="/institucion" element={<Institucion />} />
           <Route path="/contacto" element={<Contacto />} />
         </Route>

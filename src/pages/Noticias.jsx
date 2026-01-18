@@ -1,10 +1,20 @@
 import { useState } from 'react'
+import gacetillaPrensa2023Url from '../assets/noticias/2023/gacetilla_prensa_dic_2023.docx?url'
+import separataArApTabquismoUrl from '../assets/articulos_interes/2021_separata_ar_ap_tabquismo.pdf?url'
+import separataBasesCesacionUrl from '../assets/articulos_interes/2021_separata_bases_cesacion_tabaquica.pdf?url'
+import vacunaAntigripalUrl from '../assets/articulos_interes/vacuna_antigripal_minist_2020.pdf?url'
+import estadisticaCancerUrl from '../assets/noticias/2016/estadistica_del_cancer.pdf?url'
+import encuestaAsmaUrl from '../assets/articulos_interes/encuesta_asma_arg_2015.pdf?url'
+import alertaInfluenzaUrl from '../assets/articulos_interes/alerta_influenza.pdf?url'
+import alertaBotulismoUrl from '../assets/articulos_interes/alerta_botulismo_alimentario_argentina.pdf?url'
+import tabacoAdolescentesUrl from '../assets/articulos_interes/tabaco_en_adolescentes_argentina_2009.pdf?url'
+import encuestaNacionalFactoresRiesgoUrl from '../assets/articulos_interes/encuesta_nacional_de_factores_de_riesgo_2009_revargent_salud_publica.pdf?url'
 
 const noticias = [
   {
     id: 1,
     title: 'Repudio a publicidades de tabaco que violan la Ley 26.687',
-    href: 'https://www.neumo-argentina.org/images/noticias/2023/gacetilla_prensa_dic_2023.docx',
+    href: gacetillaPrensa2023Url,
     year: '2023',
     month: 'Diciembre',
     category: 'Institucional',
@@ -31,7 +41,7 @@ const noticias = [
   {
     id: 4,
     title: 'ARTRITIS REUMATOIDE/ARTRITIS PSORIÁSICA Y TABAQUISMO - SEPARATA 2021',
-    href: 'https://www.neumo-argentina.org/images/articulos_interes/2021_separata_ar_ap_tabquismo.pdf',
+    href: separataArApTabquismoUrl,
     year: '2021',
     month: '2021',
     category: 'Tabaquismo',
@@ -40,7 +50,7 @@ const noticias = [
   {
     id: 5,
     title: 'BASES PARA LA CESACIÓN TABÁQUICA - SEPARATA 2021',
-    href: 'https://www.neumo-argentina.org/images/articulos_interes/2021_separata_bases_cesacion_tabaquica.pdf',
+    href: separataBasesCesacionUrl,
     year: '2021',
     month: '2021',
     category: 'Tabaquismo',
@@ -49,7 +59,7 @@ const noticias = [
   {
     id: 6,
     title: 'Vacuna antigripal Ministerio de Salud de Argentina 2020',
-    href: 'https://www.neumo-argentina.org/images/articulos_interes/vacuna_antigripal_minist_2020.pdf',
+    href: vacunaAntigripalUrl,
     year: '2020',
     month: '2020',
     category: 'Vacunación',
@@ -58,7 +68,7 @@ const noticias = [
   {
     id: 7,
     title: 'Estadísticas del Cáncer en la Argentina - 2016',
-    href: 'https://www.neumo-argentina.org/images/noticias/2016/estadistica_del_cancer.pdf',
+    href: estadisticaCancerUrl,
     year: '2016',
     month: '2016',
     category: 'Epidemiología',
@@ -67,7 +77,7 @@ const noticias = [
   {
     id: 8,
     title: 'Encuesta ASMA ARG 2015',
-    href: 'https://www.neumo-argentina.org/images/articulos_interes/encuesta_asma_arg_2015.pdf',
+    href: encuestaAsmaUrl,
     year: '2015',
     month: '2015',
     category: 'Asma',
@@ -76,7 +86,7 @@ const noticias = [
   {
     id: 9,
     title: 'Alerta Influenza',
-    href: 'https://www.neumo-argentina.org/images/articulos_interes/alerta_influenza.pdf',
+    href: alertaInfluenzaUrl,
     year: '2008',
     month: '2008',
     category: 'Vacunación',
@@ -85,7 +95,7 @@ const noticias = [
   {
     id: 10,
     title: 'Alerta Botulismo Alimentario Argentina',
-    href: 'https://www.neumo-argentina.org/images/articulos_interes/alerta_botulismo_alimentario_argentina.pdf',
+    href: alertaBotulismoUrl,
     year: '2008',
     month: '2008',
     category: 'Salud pública',
@@ -94,7 +104,7 @@ const noticias = [
   {
     id: 11,
     title: 'Tabaco en adolescentes argentina 2009',
-    href: 'https://www.neumo-argentina.org/images/articulos_interes/tabaco_en_adolescentes_argentina_2009.pdf',
+    href: tabacoAdolescentesUrl,
     year: '2009',
     month: '2009',
     category: 'Tabaquismo',
@@ -103,7 +113,7 @@ const noticias = [
   {
     id: 12,
     title: 'Encuesta Nacional de Factores de Riesgo 2009',
-    href: 'https://www.neumo-argentina.org/images/articulos_interes/encuesta_nacional_de_factores_de_riesgo_2009_revargent_salud_publica.pdf',
+    href: encuestaNacionalFactoresRiesgoUrl,
     year: '2009',
     month: '2009',
     category: 'Epidemiología',
@@ -121,9 +131,11 @@ const Noticias = () => {
   const [searchTerm, setSearchTerm] = useState('')
   const [selectedCategory, setSelectedCategory] = useState('Todas')
   const [selectedType, setSelectedType] = useState('Todos')
+  const [selectedYear, setSelectedYear] = useState('Todos')
 
   const categories = ['Todas', ...Array.from(new Set(noticias.map(n => n.category)))]
   const types = ['Todos', ...Array.from(new Set(noticias.map(n => n.type)))]
+  const years = ['Todos', ...Array.from(new Set(noticias.map(n => n.year))).sort((a, b) => b.localeCompare(a))]
 
   const getCategoryColor = (category) => {
     const colors = {
@@ -162,9 +174,19 @@ const Noticias = () => {
     
     const matchesCategory = selectedCategory === 'Todas' || noticia.category === selectedCategory
     const matchesType = selectedType === 'Todos' || noticia.type === selectedType
+    const matchesYear = selectedYear === 'Todos' || noticia.year === selectedYear
     
-    return matchesSearch && matchesCategory && matchesType
+    return matchesSearch && matchesCategory && matchesType && matchesYear
   })
+
+  // Agrupar por año
+  const noticiasByYear = filteredNoticias.reduce((acc, noticia) => {
+    if (!acc[noticia.year]) {
+      acc[noticia.year] = []
+    }
+    acc[noticia.year].push(noticia)
+    return acc
+  }, {})
 
   return (
     <div className="bg-white py-24 sm:py-32">
@@ -198,8 +220,17 @@ const Noticias = () => {
                 className="block w-full rounded-md border-0 bg-white px-3.5 py-2 pl-10 pr-3.5 text-slate-900 shadow-xs ring-1 ring-inset ring-slate-300 placeholder:text-slate-400 focus:ring-2 focus:ring-inset focus:ring-primary-600 sm:text-sm/6"
               />
             </div>
-            {/* Filtros por categoría y tipo */}
+            {/* Filtros por categoría, tipo y año */}
             <div className="flex gap-2">
+              <select
+                value={selectedYear}
+                onChange={(e) => setSelectedYear(e.target.value)}
+                className="rounded-md border-0 bg-white px-3.5 py-2 text-slate-900 shadow-xs ring-1 ring-inset ring-slate-300 focus:ring-2 focus:ring-inset focus:ring-primary-600 sm:text-sm/6"
+              >
+                {years.map((year) => (
+                  <option key={year} value={year}>{year}</option>
+                ))}
+              </select>
               <select
                 value={selectedCategory}
                 onChange={(e) => setSelectedCategory(e.target.value)}
@@ -222,48 +253,65 @@ const Noticias = () => {
           </div>
         </div>
 
-        {/* Grid de noticias */}
+        {/* Timeline */}
         <div className="mx-auto mt-16 max-w-2xl lg:max-w-none">
-          {filteredNoticias.length === 0 ? (
+          {Object.keys(noticiasByYear).length === 0 ? (
             <div className="text-center py-12">
               <p className="text-sm text-slate-500">No se encontraron noticias que coincidan con tu búsqueda.</p>
             </div>
           ) : (
-            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-              {filteredNoticias.map((noticia) => (
-                <article
-                  key={noticia.id}
-                  className="flex flex-col gap-4 rounded-xl border border-slate-200 bg-white p-6 shadow-xs hover:shadow-sm transition-shadow"
-                >
-                  <div className="flex items-start justify-between gap-2">
-                    <div className="flex-1">
-                      <div className="flex items-center gap-2 mb-2">
-                        <span className={`rounded-full px-2 py-0.5 text-xs font-medium ${getTypeColor(noticia.type)}`}>
-                          {noticia.type}
-                        </span>
-                        <span className={`rounded-md px-1.5 py-0.5 text-xs font-medium ${getCategoryColor(noticia.category)}`}>
-                          {noticia.category}
-                        </span>
+            <div className="space-y-16">
+              {Object.keys(noticiasByYear).sort((a, b) => b.localeCompare(a)).map((year) => (
+                <div key={year} className="relative">
+                  {/* Año */}
+                  <div className="sticky top-8 z-10 -ml-4 -mt-2 flex items-baseline gap-x-2 bg-white pb-2 sm:static sm:ml-0 sm:mt-0 sm:pb-4">
+                    <h3 className="text-2xl font-bold text-slate-900">{year}</h3>
+                    <div className="hidden h-px flex-auto bg-slate-200 sm:block" aria-hidden="true" />
+                    <span className="text-sm text-slate-500">{noticiasByYear[year].length} noticias</span>
+                  </div>
+
+                  {/* Noticias del año */}
+                  <div className="relative mt-6 space-y-8 sm:mt-8">
+                    <div className="absolute left-3 top-0 hidden h-full w-px bg-slate-200 sm:block" aria-hidden="true" />
+                    {noticiasByYear[year].map((noticia) => (
+                      <div key={noticia.id} className="relative pl-8 sm:pl-16">
+                        <div className="absolute left-0 top-0 hidden h-3 w-3 rounded-full bg-primary-600 ring-4 ring-white sm:block" aria-hidden="true" />
+                        
+                        <div className="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between">
+                          <div className="flex-1">
+                            <div className="flex items-start gap-x-3 flex-wrap">
+                              <p className="text-base/7 font-semibold text-slate-900">{noticia.title}</p>
+                              <p className={`mt-0.5 rounded-md px-1.5 py-0.5 text-xs font-medium whitespace-nowrap ${getCategoryColor(noticia.category)}`}>
+                                {noticia.category}
+                              </p>
+                              <p className={`mt-0.5 rounded-md px-1.5 py-0.5 text-xs font-medium whitespace-nowrap ${getTypeColor(noticia.type)}`}>
+                                {noticia.type}
+                              </p>
+                            </div>
+                            <div className="mt-2 flex flex-wrap items-center gap-x-4 gap-y-2 text-sm/6 text-slate-500">
+                              <div className="flex items-center gap-1">
+                                <svg className="size-4 flex-none" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor">
+                                  <path strokeLinecap="round" strokeLinejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5" />
+                                </svg>
+                                <span>{noticia.month} {noticia.year}</span>
+                              </div>
+                            </div>
+                          </div>
+                          <div className="mt-3 flex flex-wrap gap-2 sm:mt-0 sm:flex-nowrap">
+                            <a
+                              href={noticia.href}
+                              target="_blank"
+                              rel="noreferrer"
+                              className="inline-flex rounded-md bg-white px-3 py-1.5 text-xs font-semibold text-slate-900 shadow-xs ring-1 ring-slate-300 hover:bg-slate-50"
+                            >
+                              Ver noticia
+                            </a>
+                          </div>
+                        </div>
                       </div>
-                      <h3 className="text-base font-semibold leading-6 text-slate-900 line-clamp-3">
-                        {noticia.title}
-                      </h3>
-                    </div>
+                    ))}
                   </div>
-                  <div className="mt-auto flex items-center justify-between gap-4 pt-2 border-t border-slate-100">
-                    <time className="text-xs text-slate-500">
-                      {noticia.month} {noticia.year}
-                    </time>
-                    <a
-                      href={noticia.href}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="text-sm font-semibold text-primary-600 hover:text-primary-700"
-                    >
-                      Ver más <span aria-hidden="true">→</span>
-                    </a>
-                  </div>
-                </article>
+                </div>
               ))}
             </div>
           )}
